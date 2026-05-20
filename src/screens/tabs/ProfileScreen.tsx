@@ -1,10 +1,17 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useLayoutEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 export default function ProfileScreen({ navigation }: any) {
   const { user } = useAuth();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>

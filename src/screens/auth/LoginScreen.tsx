@@ -1,10 +1,15 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import { useAuth } from "../../context/AuthContext";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: any) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
   const { login } = useAuth();
 
   const [email, setEmail] = useState("");

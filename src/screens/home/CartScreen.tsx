@@ -1,9 +1,15 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useLayoutEffect } from "react";
 import { useCart } from "../../context/CartContext";
 
 export default function CartScreen({ navigation }: any) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
   const { cart, removeFromCart } = useCart();
 
   const total = cart.reduce((acc, item) => acc + item.price, 0);

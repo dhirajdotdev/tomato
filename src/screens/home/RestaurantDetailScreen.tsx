@@ -1,10 +1,27 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useLayoutEffect } from "react";
 import { useCart } from "../../context/CartContext";
 
 export default function RestaurantDetailScreen({ route, navigation }: any) {
-  const { name, image, category, instructions, area, price } = route.params;
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
+  const {
+    name,
+    image,
+    category,
+    description,
+    area,
+    price,
+    restaurantName,
+    cuisine,
+    rating,
+    deliveryTime,
+  } = route.params;
   const { addToCart } = useCart();
 
   return (
@@ -82,15 +99,125 @@ export default function RestaurantDetailScreen({ route, navigation }: any) {
             ₹{price}
           </Text>
 
-          <Text
+          <View
             style={{
               marginTop: 20,
-              lineHeight: 24,
-              color: "#444",
+              padding: 16,
+              backgroundColor: "#f9f9f9",
+              borderRadius: 16,
             }}
           >
-            {instructions}
-          </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "600",
+                marginBottom: 8,
+                color: "#333",
+              }}
+            >
+              About this restaurant
+            </Text>
+            <Text
+              style={{
+                lineHeight: 22,
+                color: "#666",
+              }}
+            >
+              {description}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  color: "#999",
+                  marginBottom: 4,
+                }}
+              >
+                Restaurant
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                {restaurantName}
+              </Text>
+            </View>
+
+            <View>
+              <Text
+                style={{
+                  color: "#999",
+                  marginBottom: 4,
+                }}
+              >
+                Delivery Time
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                {deliveryTime}
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  color: "#999",
+                  marginBottom: 4,
+                }}
+              >
+                Cuisine
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                {cuisine}
+              </Text>
+            </View>
+
+            <View>
+              <Text
+                style={{
+                  color: "#999",
+                  marginBottom: 4,
+                }}
+              >
+                Rating
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                {rating} ★
+              </Text>
+            </View>
+          </View>
 
           <TouchableOpacity
             onPress={() => {

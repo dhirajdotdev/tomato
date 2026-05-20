@@ -1,7 +1,13 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLayoutEffect } from "react";
 
 export default function OnboardingScreen({ navigation }: any) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View

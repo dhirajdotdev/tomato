@@ -152,9 +152,13 @@ export default function HomeScreen({ navigation }: any) {
                   name: item.strMeal,
                   image: item.strMealThumb,
                   category: item.strCategory,
-                  instructions: item.strInstructions,
-                  area: item.strArea,
+                  description: item.restaurantDescription,
+                  area: item.restaurantLocation,
                   price,
+                  restaurantName: item.restaurantName,
+                  cuisine: item.restaurantCuisine,
+                  rating: item.restaurantRating,
+                  deliveryTime: item.restaurantDeliveryTime,
                 })
               }
               style={{

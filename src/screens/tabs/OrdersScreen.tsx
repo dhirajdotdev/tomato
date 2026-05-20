@@ -1,10 +1,17 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useLayoutEffect } from "react";
 import { useCart } from "../../context/CartContext";
 
 export default function OrdersScreen({ navigation }: any) {
   const { cart } = useCart();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>

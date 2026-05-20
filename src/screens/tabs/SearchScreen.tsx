@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 const SEARCH_CATEGORIES = [
   { id: 1, name: "Burger", emoji: "🍔" },
@@ -25,6 +25,12 @@ const RECENT_SEARCHES = ["Biryani", "Butter Chicken", "Paneer Pizza", "Samosa"];
 export default function SearchScreen({ navigation }: any) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
