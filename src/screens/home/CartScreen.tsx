@@ -1,15 +1,126 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+
+import { useCart } from "../../context/CartContext";
 
 export default function CartScreen() {
+  const { cart, removeFromCart } = useCart();
+
+  const total = cart.reduce((acc, item) => acc + item.price, 0);
+
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "#f5f5f5",
+        padding: 16,
       }}
     >
-      <Text>Cart Screen</Text>
+      <FlatList
+        data={cart}
+        keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <View
+            style={{
+              marginTop: 100,
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+              }}
+            >
+              Cart is empty
+            </Text>
+          </View>
+        }
+        renderItem={({ item }) => (
+          <View
+            style={{
+              backgroundColor: "white",
+              borderRadius: 18,
+              padding: 14,
+              marginBottom: 16,
+              flexDirection: "row",
+            }}
+          >
+            <Image
+              source={{
+                uri: item.image,
+              }}
+              style={{
+                width: 90,
+                height: 90,
+                borderRadius: 14,
+              }}
+            />
+
+            <View
+              style={{
+                flex: 1,
+                marginLeft: 14,
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                }}
+              >
+                {item.name}
+              </Text>
+
+              <Text
+                style={{
+                  color: "#e23744",
+                  fontWeight: "bold",
+                  fontSize: 18,
+                }}
+              >
+                ₹{item.price}
+              </Text>
+
+              <TouchableOpacity
+                onPress={() => removeFromCart(item.id)}
+                style={{
+                  backgroundColor: "#ffe5e8",
+                  alignSelf: "flex-start",
+                  paddingHorizontal: 14,
+                  paddingVertical: 8,
+                  borderRadius: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#e23744",
+                    fontWeight: "600",
+                  }}
+                >
+                  Remove
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      />
+
+      <View
+        style={{
+          backgroundColor: "white",
+          padding: 18,
+          borderRadius: 18,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >
+          Total: ₹{total}
+        </Text>
+      </View>
     </View>
   );
 }

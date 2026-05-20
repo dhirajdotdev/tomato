@@ -1,7 +1,9 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useCart } from "../../context/CartContext";
 
 export default function RestaurantDetailScreen({ route, navigation }: any) {
   const { name, image, category, instructions, area, price } = route.params;
+    const { addToCart } = useCart();
 
   return (
     <ScrollView
@@ -66,7 +68,16 @@ export default function RestaurantDetailScreen({ route, navigation }: any) {
         </Text>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("Cart")}
+          onPress={() => {
+            addToCart({
+              id: String(Date.now()),
+              name,
+              price,
+              image,
+            });
+
+            navigation.navigate("Cart");
+          }}
           style={{
             backgroundColor: "#e23744",
             padding: 18,

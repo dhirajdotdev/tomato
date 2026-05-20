@@ -9,10 +9,13 @@ import SearchScreen from "../screens/tabs/SearchScreen";
 import OrdersScreen from "../screens/tabs/OrdersScreen";
 
 import ProfileScreen from "../screens/tabs/ProfileScreen";
+import { useCart } from "../context/CartContext";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const { cart } = useCart();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -41,11 +44,12 @@ export default function TabNavigator() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Orders"
         component={OrdersScreen}
         options={{
+          tabBarBadge: cart.length > 0 ? cart.length : undefined,
+
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bag" color={color} size={size} />
           ),
