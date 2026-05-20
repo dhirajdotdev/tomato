@@ -1,7 +1,7 @@
 import { ActivityIndicator, View } from "react-native";
 
 import AuthNavigator from "./AuthNavigator";
-import TabNavigator from "./TabNavigator";
+import DrawerNavigator from "./DrawerNavigator";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -22,5 +22,5 @@ export default function RootNavigator() {
     );
   }
 
- return user ? <TabNavigator /> : <AuthNavigator />;
+ return user ? <DrawerNavigator /> : <AuthNavigator />;
 }
