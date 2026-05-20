@@ -5,9 +5,11 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  TextInput,
 } from "react-native";
-
-import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useState, useLayoutEffect } from "react";
 
 import { fetchMeals } from "../../services/api";
 
@@ -15,6 +17,12 @@ export default function HomeScreen({ navigation }: any) {
   const [meals, setMeals] = useState<any[]>([]);
 
   const [loading, setLoading] = useState(true);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   useEffect(() => {
     loadMeals();
@@ -30,25 +38,101 @@ export default function HomeScreen({ navigation }: any) {
 
   if (loading) {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ActivityIndicator size="large" color="#e23744" />
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color="#e23744" />
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#f5f5f5",
-      }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+      <View
+        style={{
+          backgroundColor: "white",
+          borderBottomWidth: 1,
+          borderBottomColor: "#eee",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 16,
+            paddingVertical: 14,
+          }}
+        >
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <MaterialIcons name="menu" size={26} color="#e23744" />
+          </TouchableOpacity>
+          <View style={{ alignItems: "center" }}>
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: "bold",
+                color: "#e23744",
+                letterSpacing: 1,
+              }}
+            >
+              🍅 Tomato
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: "#999",
+                marginTop: 2,
+              }}
+            >
+              Food Delivery
+            </Text>
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+            <MaterialIcons name="shopping-cart" size={26} color="#e23744" />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 16,
+            paddingBottom: 14,
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "#f5f5f5",
+              borderRadius: 12,
+              paddingHorizontal: 12,
+              borderWidth: 1,
+              borderColor: "#eee",
+            }}
+          >
+            <MaterialIcons name="location-on" size={18} color="#e23744" />
+            <TextInput
+              placeholder="Your location"
+              placeholderTextColor="#bbb"
+              style={{
+                flex: 1,
+                paddingVertical: 10,
+                paddingHorizontal: 8,
+                fontSize: 14,
+              }}
+            />
+          </View>
+        </View>
+      </View>
       <FlatList
         data={meals}
         keyExtractor={(item) => item.idMeal}
@@ -173,6 +257,6 @@ export default function HomeScreen({ navigation }: any) {
           );
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 }

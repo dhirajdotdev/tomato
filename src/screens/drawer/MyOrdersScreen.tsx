@@ -1,22 +1,45 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons } from "@expo/vector-icons";
 
-export default function MyOrdersScreen() {
+export default function MyOrdersScreen({ navigation }: any) {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+      <View
         style={{
-          fontSize: 28,
-          fontWeight: "bold",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          backgroundColor: "white",
+          borderBottomWidth: 1,
+          borderBottomColor: "#eee",
         }}
       >
-        My Orders
-      </Text>
-    </View>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back" size={28} color="#e23744" />
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>My Orders</Text>
+        <View style={{ width: 28 }} />
+      </View>
+
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 18,
+            color: "#666",
+          }}
+        >
+          My Orders Screen
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }

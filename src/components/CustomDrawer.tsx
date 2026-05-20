@@ -55,7 +55,9 @@ export default function CustomDrawer(props: any) {
       <DrawerItemList {...props} />
 
       <TouchableOpacity
-        onPress={logout}
+        onPress={async () => {
+          await logout();
+        }}
         style={{
           margin: 20,
           backgroundColor: "#e23744",

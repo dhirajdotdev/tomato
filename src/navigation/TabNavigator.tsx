@@ -10,11 +10,24 @@ import OrdersScreen from "../screens/tabs/OrdersScreen";
 
 import ProfileScreen from "../screens/tabs/ProfileScreen";
 import { useCart } from "../context/CartContext";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   const { cart } = useCart();
+
+  const getTabBarVisibility = (route: any) => {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+
+    if (routeName === "RestaurantDetail" || routeName === "Cart") {
+      return {
+        display: "none",
+      };
+    }
+
+    return;
+  };
 
   return (
     <Tab.Navigator
@@ -26,13 +39,16 @@ export default function TabNavigator() {
       <Tab.Screen
         name="HomeTab"
         component={RestaurantStack}
-        options={{
+        /*@ts-ignore*/
+        options={({ route }) => ({
           title: "Home",
+
+          tabBarStyle: getTabBarVisibility(route),
 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
-        }}
+        })}
       />
 
       <Tab.Screen

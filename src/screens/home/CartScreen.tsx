@@ -1,126 +1,148 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useCart } from "../../context/CartContext";
 
-export default function CartScreen() {
+export default function CartScreen({ navigation }: any) {
   const { cart, removeFromCart } = useCart();
 
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#f5f5f5",
-        padding: 16,
-      }}
-    >
-      <FlatList
-        data={cart}
-        keyExtractor={(item) => item.id}
-        ListEmptyComponent={
-          <View
-            style={{
-              marginTop: 100,
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-              }}
-            >
-              Cart is empty
-            </Text>
-          </View>
-        }
-        renderItem={({ item }) => (
-          <View
-            style={{
-              backgroundColor: "white",
-              borderRadius: 18,
-              padding: 14,
-              marginBottom: 16,
-              flexDirection: "row",
-            }}
-          >
-            <Image
-              source={{
-                uri: item.image,
-              }}
-              style={{
-                width: 90,
-                height: 90,
-                borderRadius: 14,
-              }}
-            />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          backgroundColor: "white",
+          borderBottomWidth: 1,
+          borderBottomColor: "#eee",
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back" size={28} color="#e23744" />
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Your Cart</Text>
+        <View style={{ width: 28 }} />
+      </View>
 
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#f5f5f5",
+          padding: 16,
+        }}
+      >
+        <FlatList
+          data={cart}
+          keyExtractor={(item) => item.id}
+          ListEmptyComponent={
             <View
               style={{
-                flex: 1,
-                marginLeft: 14,
-                justifyContent: "space-between",
+                marginTop: 100,
+                alignItems: "center",
               }}
             >
               <Text
                 style={{
                   fontSize: 18,
-                  fontWeight: "bold",
                 }}
               >
-                {item.name}
+                Cart is empty
               </Text>
-
-              <Text
-                style={{
-                  color: "#e23744",
-                  fontWeight: "bold",
-                  fontSize: 18,
+            </View>
+          }
+          renderItem={({ item }) => (
+            <View
+              style={{
+                backgroundColor: "white",
+                borderRadius: 18,
+                padding: 14,
+                marginBottom: 16,
+                flexDirection: "row",
+              }}
+            >
+              <Image
+                source={{
+                  uri: item.image,
                 }}
-              >
-                ₹{item.price}
-              </Text>
-
-              <TouchableOpacity
-                onPress={() => removeFromCart(item.id)}
                 style={{
-                  backgroundColor: "#ffe5e8",
-                  alignSelf: "flex-start",
-                  paddingHorizontal: 14,
-                  paddingVertical: 8,
-                  borderRadius: 10,
+                  width: 90,
+                  height: 90,
+                  borderRadius: 14,
+                }}
+              />
+
+              <View
+                style={{
+                  flex: 1,
+                  marginLeft: 14,
+                  justifyContent: "space-between",
                 }}
               >
                 <Text
                   style={{
-                    color: "#e23744",
-                    fontWeight: "600",
+                    fontSize: 18,
+                    fontWeight: "bold",
                   }}
                 >
-                  Remove
+                  {item.name}
                 </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-      />
 
-      <View
-        style={{
-          backgroundColor: "white",
-          padding: 18,
-          borderRadius: 18,
-        }}
-      >
-        <Text
+                <Text
+                  style={{
+                    color: "#e23744",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                >
+                  ₹{item.price}
+                </Text>
+
+                <TouchableOpacity
+                  onPress={() => removeFromCart(item.id)}
+                  style={{
+                    backgroundColor: "#ffe5e8",
+                    alignSelf: "flex-start",
+                    paddingHorizontal: 14,
+                    paddingVertical: 8,
+                    borderRadius: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#e23744",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Remove
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        />
+
+        <View
           style={{
-            fontSize: 24,
-            fontWeight: "bold",
+            backgroundColor: "white",
+            padding: 18,
+            borderRadius: 18,
           }}
         >
-          Total: ₹{total}
-        </Text>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: "bold",
+            }}
+          >
+            Total: ₹{total}
+          </Text>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
