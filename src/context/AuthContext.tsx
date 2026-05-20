@@ -10,7 +10,7 @@ type UserType = {
 type AuthContextType = {
   user: UserType;
   loading: boolean;
-  login: () => Promise<void>;
+  login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<void>;
 };
 
@@ -39,16 +39,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const login = async () => {
-    const mockUser = {
-      name: "Dhiraj",
-      email: "dhiraj@gmail.com",
-    };
+ const login = async (email: string, password: string) => {
+   if (email === "dhiraj@gmail.com" && password === "123456") {
+     const mockUser = {
+       name: "Dhiraj",
+       email,
+     };
 
-    setUser(mockUser);
+     setUser(mockUser);
 
-    await AsyncStorage.setItem("user", JSON.stringify(mockUser));
-  };
+     await AsyncStorage.setItem("user", JSON.stringify(mockUser));
+
+     return {
+       success: true,
+     };
+   }
+
+   return {
+     success: false,
+     message: "Invalid credentials",
+   };
+ };
 
   const logout = async () => {
     setUser(null);
