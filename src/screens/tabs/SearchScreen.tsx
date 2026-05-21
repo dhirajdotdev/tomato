@@ -33,7 +33,10 @@ export default function SearchScreen({ navigation }: any) {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+      edges={["top", "left", "right"]}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -96,6 +99,7 @@ export default function SearchScreen({ navigation }: any) {
       <FlatList
         data={[{ type: "categories" }, { type: "recents" }]}
         keyExtractor={(item) => item.type}
+        contentContainerStyle={{ paddingBottom: 110 }}
         renderItem={({ item }) => {
           if (item.type === "categories") {
             return (

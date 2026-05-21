@@ -14,7 +14,10 @@ export default function OrdersScreen({ navigation }: any) {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+      edges={["top", "left", "right"]}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -44,6 +47,7 @@ export default function OrdersScreen({ navigation }: any) {
         <FlatList
           data={cart}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingBottom: 110 }}
           renderItem={({ item }) => (
             <View
               style={{

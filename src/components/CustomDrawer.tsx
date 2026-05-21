@@ -23,7 +23,7 @@ export default function CustomDrawer(props: any) {
       >
         <Image
           source={{
-            uri: "https://i.pravatar.cc/150",
+            uri: "https://pbs.twimg.com/profile_images/1758129718187175936/aRZPB-a4_400x400.jpg",
           }}
           style={{
             width: 90,

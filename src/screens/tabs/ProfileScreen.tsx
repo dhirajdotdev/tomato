@@ -14,7 +14,10 @@ export default function ProfileScreen({ navigation }: any) {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+      edges={["top", "left", "right"]}
+    >
       <View
         style={{
           flexDirection: "row",

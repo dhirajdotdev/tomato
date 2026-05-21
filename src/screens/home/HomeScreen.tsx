@@ -53,7 +53,10 @@ export default function HomeScreen({ navigation }: any) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+      edges={["top", "left", "right"]}
+    >
       <View
         style={{
           backgroundColor: "white",
@@ -139,6 +142,7 @@ export default function HomeScreen({ navigation }: any) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           padding: 16,
+          paddingBottom: 110,
         }}
         renderItem={({ item }) => {
           const price = Math.floor(Math.random() * 500) + 100;
